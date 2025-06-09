@@ -1,0 +1,353 @@
+% !TeX spellcheck = en_US
+% Jan 18, 2015; HK
+
+%\oddsidemargin 0.5in
+%\evensidemargin 0.5in
+%\textwidth 5.5in
+%\topmargin -0.2in
+%\textheight 8.4in
+%\pagestyle{empty}
+%\input{tcilatex}
+%\TeX spellcheck = en_US
+
+\documentclass[11pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{amsthm,amssymb,amsmath} %for math
+\usepackage{rotating}
+\usepackage{abstract}
+
+\usepackage[left=1.5in, right=1.5in, top=1.5in, bottom=1.5in]{geometry}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{authblk}
+\usepackage{natbib} %for bibliography, referencing 
+\usepackage{hyperref} %for hyperlinks
+\usepackage{setspace} %for single, onehalf and double spacing
+\usepackage{pgfplots} %for TikZ
+\pgfplotsset{compat=1.18}
+\usepackage{subcaption}
+
+\renewcommand{\baselinestretch}{1.5}
+\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{defi}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+%\newenvironment{proof}[1][Proof]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{remark}[1][Remark]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newcommand{\qed}{\nobreak \ifvmode \relax \else
+%\ifdim \lastskip<1.5em \hskip-\lastskip
+%\hskip1.5em plus0em minus0.5em \fi \nobreak
+%\vrule height0.75em width0.5em depth0.25em\fi}
+\renewcommand{\abstractnamefont}{\normalfont \large \bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\footnotesize}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\ul}{\underline}
+\newcommand{\ol}{\overline}
+
+\renewcommand\Authfont{\scshape}
+\renewcommand\Affilfont{\itshape\small}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONVENTIONS
+% individual (they/them/theirs)
+% increasing = weak sense; say strictly increasing for u'>0
+% concave = weak sense 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\title{Increased Risk Aversion and Optimal Prevention:\\A Monotone Comparative Statics Approach}
+\author{Jingyuan Li \qquad Richard Peter \qquad Jianli Wang \qquad Jian Zhang\footnote{Li: Lingnan University, Department of Operations and Risk Management, jingyuanli@ln.edu.hk. Peter: University of Iowa, Department of Finance, richard-peter@uiowa.edu. Wang: Nanjing University of Aeronautics and Astronautics, College of Economics and Management, jianliwang@nuaa.edu.cn. Zhang: Le Moyne College, McNeil Academy of Risk Management, zhangji@lemoyne.edu.}}
+
+\date{\today}
+\maketitle
+
+\begin{abstract}
+	Using the interval dominance order, we find that increased risk aversion always raises optimal self-insurance. If the individual's boldness coefficient exceeds the growth rate of the no-loss probability, it also raises optimal self-protection. In our setting, the first-order approach need not be valid and we make only minimal assumptions on preferences and technologies. We thus derive the effect of comparative risk aversion on optimal prevention in greater generality.\\
+	\\
+	\noindent
+	\textbf{Keywords:} Prevention $\cdot$ self-insurance $\cdot$ self-protection $\cdot$ interval dominance $\cdot$ comparative risk aversion \\
+	\\
+	\textbf{JEL-Classification:} D11 $\cdot$ D61 $\cdot$ D81
+\end{abstract}
+
+\begin{flushleft}
+%\hspace{.57in} \textbf{Key words} \hspace{.2in}
+\end{flushleft}
+
+\vspace*{\fill}
+\thispagestyle{empty} \setcounter{page}{0}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The study of optimal prevention is a classic topic in the economics of risk and uncertainty. \cite{ehrlich1972market} distinguish between self-insurance and self-protection depending on whether the activity reduces the severity or the probability of loss. Thirteen years later, \cite{dionne1985self} find that increased risk aversion always leads to more self-insurance, consistent with intuition, whereas the effect on self-protection is ambiguous. A puzzle was born.\footnote{For recent surveys on the economic analysis of prevention, see \cite{bleichrodt2022prevention}, \cite{courbage2024prevention} and \cite{peter2024economics,peter2024selfprotection}.}
+
+Understanding how people's risk preferences shape prevention matters in policy and contract design, for public health and safety, and in the  welfare evaluation of risk-reduction programs and targeted interventions. The common analytical approach relies on first-order conditions. Suppose that the optimal prevention level for a less risk-averse individual is unique and interior. Further, assume that the objective function of a more risk-averse individual is hump-shaped. Then, the sign of the first-order expression of the latter at the optimal prevention level of the former reveals how prevention responds to increased risk aversion.
+
+%Understanding the effect of people's risk preferences on prevention matters for policy design, public health and safety, contract design, and the welfare effects of risk-reduction programs and targeted interventions. The typical method is to pursue a first-order approach. Suppose the optimal level of prevention of the less risk-averse individual is unique and interior. Also suppose that the objective function of the more risk-averse individual is hump-shaped. Then, the sign of the first-order expression of the latter at the effort level optimal for the former tells us whether effort goes up or down in response to increased risk aversion.
+
+The validity of the first-order approach comes not without baggage. Some might think that second-order conditions are for bean counters and bar any relevant economics. We take a different view. When taken seriously, the first-order approach constrains the applicability of the results in terms of preferences and technologies.\footnote{The principal-agent literature instead has taken the question of the validity of the first-order approach very seriously, see \cite{rogerson1985first} and \cite{jewitt1988justifying}.} 
+
+Consider self-insurance. The objective function is concave in effort if the individual is risk-averse and the technology decreasing and convex. Risk lovers are excluded even though we observe them regularly in the data, for example, $9\%$ of participants in \cite{dohmen2011individual} and $15\%$ in \cite{noussair2014higher}. Take self-protection. The objective function is quasi-concave in effort if the individual is risk-averse and the technology $p(x)$ satisfies $p''(x) p(x) \geq 2(p'(x))^2$, see \cite{jullien1999should}. It is concave in effort if the individual is risk-averse with nonincreasing absolute risk aversion and the technology is log-convex, see \cite{fagart2013first}. In both cases, risk lovers are excluded; in the last case, risk aversion functions with increasing segments are excluded as well. Unlike market insurance, prevention may increase expected final wealth. This makes it potentially attractive even risk lovers, see \cite{jindapon2013risk}.
+
+More substantively, we argue that the convexity assumption on the technology is not just a technicality, but rather undermines realism in many important settings. For example, herd immunity requires vaccinating a critical share of the population—partial uptake may be ineffective. Smoking fewer cigarettes is better than smoking more, but the major health benefit comes from quitting entirely. Partial cybersecurity measures may still leave systems vulnerable, and true protection is only achieved with full implementation. A flood barrier that is too low does nothing, but once a threshold is reached, it significantly reduces risk. In all these cases, a globally convex technology seems to describe reality poorly, as the first units of prevention may have little effect.\footnote{Appendix~\ref{app:non_cx} presents a prevention technology with a mirrored sigmoid shape, which might be more consistent with these examples. The objective function may not be hump-shaped then.}
+
+Against this background, we derive the monotone comparative statics of increased risk aversion on optimal prevention. We make minimal assumptions on preferences and technologies and only assume that more money is better than less, and that effort does not increase loss severity or loss probability. Our main tool is the interval dominance order by \cite{quah2009comparative}. We find that increased risk aversion raises optimal self-insurance (in the strong set order). To sign the effect on self-protection, we identify a new condition that relates the individual's boldness coefficient to the decay rate of the no-loss probability. This condition can also be applied to self-insurance-cum-protection \citep[see][]{lee1998risk}. Our results establish the effects of comparative risk aversion on optimal prevention in much greater generality, thus expanding their economic reach.
+
+%In order to mitigate risks, individuals may take actions either reducing the severity of potential loss (self-insurance or loss reduction) or reducing the probability of occurrence for a risk (self-protection or loss prevention). It is intuitive that people would take more efforts to reduce risk when they become more unwilling to take risk. Ehrlich and Becker (1972) study the demand of self-insurance and self protection. They focus on the interaction between market insurance, self-insurance and self-protection. In another classical paper, Dionne and Eeckhoudt (1985) show that a more risk-averse decision maker would take higher self-insurance activities, while the effect of increased risk aversion on self-protection is ambiguious. Later studies have tried to clarify the ambiguous link between risk aversion and self-protection. Boyer and Dionne (1989) study the relation between increased exogenous risk and self-protection actions, but they find that impact on the self-protection activities by increased risk is ambiguous and increased self-protection maybe the result of increased risk under non-DARA utility functions. Briys and Schlesinger (1990) prove that the relation between risk aversion and self-insurance are still robust in several distinct settings, such as state-dependent utility, the presence of background and random initial wealth, while the self-protection cannot hold in these settings. Jullien et al. (1999) suggest a utility-dependent threshold of probability,beneath which more self-protection is the result of increased risk aversion. Chiu (2000) analyzed the effect of prudence on this threshold. Eeckhoudt and Gollier (2005) propose some assumptions under which a risk-neutral agent invests less in self-protection than a prudence agent.
+
+%Interestingly, the method in comparative statics of risk aversion and prevention efforts is mainly confined to first order condition,which requires some technical assumptions of second order conditions for utility function. \footnote{For example, concave of utility function} Single crossing property(Milgrom and Shannon,1994) and interval dominance order(Quah and Strulovici,2009) enables one to better analyze this comparative statics problem with less assumptions. Early contributions in literature of monotone comparative statics are Milgrom and Roberts (1990), Vives (1990) and Topkis (1998).Milgrom and Shannon (1994) characterize the single crossing condition and demonstrate its application to several settings,such as competitive firm,the Bertrand oligopolistist and so on. However,single crossing property maybe invalid in some situations. Quah and Strulovici (2009) identify the interval dominance order,which requires weaker condition than single crossing property and complement the cases when conditions do not guarantee single crossing in its dominance.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The setting and the main tool}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+An individual with initial wealth $w_0$ faces a binary risk. A loss of $\ell <w_0$ occurs with probability $p$, and there is no loss otherwise. To mitigate this risk, the individual can either invest to reduce the loss severity (self-insurance), the loss probability (self-protection), or both (self-insurance-cum-protection).
+
+The individual's preferences over final wealth are represented by a von Neumann-Morgenstern (vNM) utility function $u$. We assume that $u$ is continuously differentiable and strictly increasing, $u'>0$, but make no further assumptions. Let $v$ be another vNM utility function of final wealth with the same properties. \cite{pratt1964risk} shows that $v$ is more risk-averse than $u$ if and only if $v(w)=k(u(w))$ for all final wealth levels $w$, where $k$ is a strictly increasing and concave transformation.\footnote{Function $k$ is continuously differentiable because $u$ and $v$ are. We make no assumption about the differentiability of $k'$.} 
+
+To assess the effect of increased risk aversion on prevention, we use monotone comparative statics. We begin with the following definition.
+
+\begin{defi}[\citeauthor{topkis1998supermodularity}, \citeyear{topkis1998supermodularity}]
+	Let $A$ and $B$ be two subsets of $\mathbb{R}$. $A$ dominates $B$ in the strong set order, $A \geq_S B$, if for any $a \in A$ and $b \in B$, we have $\max\{a,b\} \in A$ and $\min\{a,b\} \in B$. 
+\end{defi}
+
+The following definition, theorem and proposition are from \cite{quah2009comparative}, see their Section 2.2, Theorem 1, and Proposition 2.
+
+\begin{defi}
+	Let $f$ and $g$ be real-valued functions defined on domain $D \subset \mathbb{R}$. We say that $g$ interval dominates $f$, $g \succeq_{\text{ID}} f$, if
+	\begin{equation}\label{eq:mon_cond}
+		f(d_2) - f(d_1) \geq (>)\, 0 \qquad \Rightarrow \qquad g(d_2) - g(d_1) \geq (>)\, 0
+	\end{equation}
+	holds for all $d_2$ and $d_1$ such that $d_2 > d_1$ and $f(d_2) \geq f(d)$ for all $d \in [d_1,d_2]$.
+\end{defi}
+
+Interval dominance is weaker than \citeauthor{milgrom1994monotone}'s (\citeyear{milgrom1994monotone}) single-crossing property because it requires \eqref{eq:mon_cond} to hold only for a subset of $d_2$ and $d_1$ with $d_2 > d_1$, and not for all. The following comparative statics result holds.
+
+\begin{theorem}\label{theo:ID}
+	If $g \succeq_{\text{ID}} f$, then $\argmax_{d \in C} g(d) \geq_S \argmax_{d \in C} f(d)$ for any interval $C$ of $D$.
+\end{theorem}
+
+The reverse is also true under an additional assumption on $g$ (i.e., regularity). Here is a sufficient condition for interval dominance.
+
+\begin{proposition}\label{prop:ID}
+	Let $D$ be an interval of $\mathbb{R}$, let $f$ and $g$ be differentiable a.e., and assume that there is an increasing and strictly positive function $\alpha: D \rightarrow \mathbb{R}$ such that $g'(d) \geq \alpha(d) f'(d)$ for almost all $d$. Then $g \succeq_{\text{ID}} f$.
+\end{proposition}
+
+This proposition allows us to verify interval dominance via a simple comparison of derivatives.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Forms of prevention and the main results}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Self-Insurance}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Suppose the individual invests $y \geq 0$ to reduce the loss severity. Let $\ell(y)$ be a decreasing function of effort that is nonnegative and continuously differentiable, $\ell' \leq 0$, with $\ell(0) = \ell_0 < w_0$. No further assumptions about $\ell$ are made. We assume that $y$ measures the cost of self-insurance directly.\footnote{In this setting, no generality is gained from the inclusion of a cost function, see \cite{peter2024selfprotection}.} Final wealth levels are given by $w_0-y-\ell(y)$ and $w_0-y$ in the loss and the no-loss state.
+
+We define the domain for self-insurance as follows:
+	$$ D = \{y \geq 0: y+\ell(y)\leq w_0, -\ell'(y) \geq 1\}. $$
+The first requirement ensures nonnegative final wealth in the no-loss state and hence in both states. The second requirement removes levels of self-insurance at which loss-state wealth is locally decreasing. We assume that $D$ is non-empty.\footnote{If $D$ is empty, the self-insurance technology is unappealing to all individuals with $u'>0$. In this case, inaction is optimal regardless of their risk preferences.} $D$ is bounded and closed due to continuity of $\ell$ and $\ell'$, and hence compact. We assume that $D$ is an interval of $\mathbb{R}$.
+
+Let
+	$$ U(y) = pu(w_0-y-\ell(y)) + (1-p)u(w_0-y) $$
+be the objective function of the less risk-averse individual, and denote optimal self-insurance by $Y_u = \argmax_{y \in C} U(y)$ for $C \subseteq D$. Define objective function $V(y)$ and its maximizer(s) $Y_v$ accordingly. We obtain the following result.\footnote{All proofs are relegated to the appendix.} 
+
+\begin{proposition}\label{prop:SI}
+	If $v$ is more risk-averse than $u$, then $Y_v \geq_S Y_u$ for any interval $C$ of $D$.
+\end{proposition}
+
+The result by \cite{dionne1985self} arises as a special case of our analysis when $U$ has a unique interior solution $y^*$ and $V$ is hump-shaped in $y$. Under these additional assumptions, the first-order approach is valid and the sign of $V'(y^*)$ indicates whether effort increases or decreases. Proposition~\ref{prop:SI} removes any constraints that uniqueness and interiority of $y^*$ as well as hump-shapedness of $V$ impose on preferences and technologies. We thus generalize the positive effect of greater risk aversion on optimal self-insurance considerably.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Self-Protection}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Suppose instead that the individual invests $x \geq 0$ to reduce the loss probability. Let $p(x)$ be a decreasing function of effort that is nonnegative and continuously differentiable, $p' \leq 0$. We make no further assumptions on $p$. Final wealth levels are $w_0-x-\ell$ and $w_0-x$ in the loss and the no-loss state. We restrict our attention to the domain $D=[0,\ol{x}]$ with $\ol{x}=\min\{\ell,w_0-\ell\}$.\footnote{Effort levels larger than $\ell$ are first-order stochastically dominated by inaction.}
+
+Let 
+	$$ U(x)=p(x)u(w_0-x-\ell)+(1-p(x))u(w_0-x) $$
+denote the objective function of the less risk-averse individual. Let optimal self-protection be given by $X_u=\argmax_{x \in C} U(x)$ for $C \subseteq D$. Define $V(x)$ and $X_v$ accordingly. Self-protection requires an additional condition to sign the comparative static. We assume without loss that $u(0)=0$, and provide the following definition.
+\begin{defi}\hspace{1em}
+	\begin{itemize}
+		\item[(i)] \citep{aumann1977power} The individual's boldness coefficient is given by: $B_u(w) = u'(w)/u(w)$ for $w \geq 0$.
+		\item[(ii)] The growth rate of the probability of no loss is: $\delta_p(x)=-p'(x)/(1-p(x))$ for $x \in D$.
+	\end{itemize} 
+\end{defi}
+
+\cite{aumann1977power} show that boldness determines the marginal income tax rate at the equilibrium allocation of a game where tax policies are decided by majority vote. They refer to the inverse of $B_u$ as ``fear of ruin,'' because it measures the individual's attitude toward risking their entire wealth, see also \cite{foncel2005fear}. The coefficient $\delta_p(x)$ measures how quickly the probability of no loss increases at $x$ for technology $p$.
+
+We obtain the following result.
+\begin{proposition}\label{prop:SP}
+	Let $v$ be more risk-averse than $u$ and let $\delta_p(x) \leq B_u(w_0-x)$ for all $x \in D$. Then $Y_v \geq_S Y_u$ for any interval $C$ of $D$.
+\end{proposition}
+
+The sufficient condition is easy to satisfy. Suppose that $p(x)=1-q_0 \exp(\xi x)$ with $q_0 \in (0,1)$ and $\xi \in (0,-\ln(q_0)/\ol{x})$. Let $u(w) = (1-\exp(-Aw))/A$ for $A \in \mathbb{R}$. Then, $B_u(w) = A/(\exp(Aw)-1)$, which is strictly decreasing in $w$ regardless of the sign of $A$. The condition is then equivalent to $\xi \leq A/(\exp(A(w_0-\ol{x})-1))$, which bounds how quickly the loss probability decreases in effort. 
+
+Conditions that relate utility coefficients with growth rates also appear in the comparative statics of self-protection with two inputs \citep[see][]{hofmann2015multivariate} and with multiple risks \citep[see][]{courbage2017optimal}. Take prevention technology $q$ with $q(x) \leq p(x)$ and $-q'(x) \leq -p'(x)$ for all $x \in D$. Then, $\delta_q(x) \leq \delta_p(x)$, and the condition for a positive effect of increased risk aversion on effort is more likely to hold. This insight is reminiscent of the finding by \cite{jullien1999should} that optimal self-protection increases when the loss probability of the less risk-averse agent is small enough. They use the first-order approach and also obtain the reverse result, that effort decreases with increased risk aversion when the loss probability is large. Our approach is more general because we do not need the first-order approach to be valid. Given that we assume less structure on the problem, it is then not surprising that our condition is only sufficient, but not necessary.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Self-insurance-cum-protection (SICP)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+As argued by \cite{lee1998risk}, prevention may reduce both loss severity and loss probability simultaneously. For example, a driver safety training for operators of commercial vehicles can help with hazard awareness and thus reduce the frequency of accidents. It also equips drivers with skills to mitigate accidents when they happen, which lowers injury and property damage levels.\footnote{SICP is less well understood than self-insurance and self-protection. \cite{wong2016precautionary} studies precautionary SICP and \cite{peter2024precautionary} identify rich interaction effects with saving.} 
+
+In terms of the model, let $z \geq 0$ denote the investment in SICP. Let $\ell(z)$ and $p(z)$ be nonnegative, decreasing, and continuously differentiable in effort, $\ell' \leq 0$ and $p' \leq 0$. We define the domain as follows:
+	$$ D = \{ z \geq 0: z+\ell(z) \leq w_0, -\ell'(z) \leq 1\}. $$
+The objective function for the less risk-averse individual is
+	$$ U(z) = p(z) u(w_0-z-\ell(z)) + (1-p(z)) u(w_0-z), $$
+and we write $Z_u = \argmax_{z \in C} U(z)$ for $C \subseteq D$, and likewise for individual $v$. 
+
+The following result is a corollary of Proposition~\ref{prop:SP}.
+
+\begin{corollary}\label{cor:SICP}
+	Let $v$ be more risk-averse than $u$ and let $\delta_p(z) \leq B_u(w_0-z)$ for all $z \in D$. Then $Z_v \geq_S Z_u$ for any interval $C$ of $D$.
+\end{corollary}
+
+\cite{lee1998risk} uses the first-order approach and assumes a unique interior solution for individual $u$, say $z^*_u$. He finds a definitive positive effect of increased risk aversion on effort when $-\ell'(z^*_u) \geq 1$, and imposes a probability threshold condition on $p(z^*_u)$ otherwise. Given the generality of our approach, we combine the assumption of a positive effect of effort on loss state wealth ($-\ell'(z) \leq 1$ in the definition of the domain) with the threshold condition on $\delta_p(z)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Ever since \cite{dionne1985self} posed their famous puzzle, much effort has gone into understanding how risk preferences shape optimal prevention. The typical approach relies on first-order conditions, which limits the generality of the results. In particular, it excludes risk lovers. Moreover, many forms of prevention only become effective beyond a threshold level of effort, making global convexity a poor assumption on the technology and potentially causing the objective function to lose its hump shape.
+
+Monotone comparative statics offer a remedy. Using \citeauthor{quah2009comparative}'s (\citeyear{quah2009comparative}) interval dominance order, we show that increased risk aversion always raises the demand for self-insurance. The literature’s focus on risk averters and convex technologies is therefore unwarranted. For self-protection, we identify a novel condition that bounds the growth rate of the no-loss probability by the individual’s boldness coefficient. As expected, self-protection is more nuanced, but our results broadly support the idea that greater risk aversion leads to more effort when the loss probability is not too large. We look forward to seeing which other findings in risk and insurance economics can be broadened with new tools like interval dominance, which relax auxiliary assumptions and expand the applicability of the results.
+%\pagebreak
+%\section*{References}
+%
+%\begin{verse}
+%Aumann, R. J., Kurz, M. (1977), Power and taxes. Econometrica: Journal of the Econometric Society, 1137-1161.\\
+%
+%Boyer, M.,Dionne, G.(1989),More on insurance, protection, and risk,The Canadian Journal of Economics/Revue canadienne d'Economique, 22,202-204.\\
+%	
+%Briys, E., Schlesinger, H.(1990),Risk aversion and the propensities for self-insurance and self-protection,Southern Economic Journal,458-467.\\
+%
+%Chiu, W. H. (2000),On the propensity to self-protect,Journal of Risk and Insurance,555-577.\\
+%
+%Cornes, R., \& Hartley, R. (2012). Risk aversion in symmetric and asymmetric contests. Economic Theory, 51(2), 247-275.\\
+%
+%Dionne, G., Eeckhoudt, L.(1985),Self-insurance, self-protection and increased risk aversion,Economics Letters, 17,39-42.\\
+%
+%Eeckhoudt, L. R., Hammitt, J. K. (2001), Background risks and the value of a statistical life. Journal of risk and uncertainty, 23(3), 261-279.\\
+%
+%Eeckhoudt, L.,\& Gollier, C.(2005), The impact of prudence on optimal prevention. Economic Theory, 26(4), 989-994.\\
+%
+%Ehrlich, I., Becker, G. S.(1972),Market insurance, self-insurance, and self-protection,Journal of political Economy, 80,623-648.\\
+%
+%Foncel, J., \& Treich, N. (2005), Fear of ruin. Journal of Risk and Uncertainty, 31(3), 289-300.\\
+%	
+%Jullien, B., Salanie, B., Salanie, F.(1999),Should more risk-averse agents exert more effort?,The Geneva Papers on Risk and Insurance Theory 24,19-28.\\
+%
+%Konrad, K. A., \& Schlesinger, H. (1997). Risk Aversion in Rent‐Seeking and Rent‐Augmenting Games. The Economic Journal, 107(445), 1671-1683.\\
+%
+%Lee, K. (1998). Risk aversion and self-insurance-cum-protection. Journal of Risk and Uncertainty, 17(2), 139-151.\\
+%
+%Milgrom, P., Roberts, J.(1990),Rationalizability, learning, and equilibrium in games with strategic complementarities,Econometrica: Journal of the Econometric Society,1255-1277.\\
+%
+%Milgrom, P., Shannon, C. (1994). Monotone comparative statics. Econometrica: Journal of the Econometric Society, 157-180.\\
+%
+%Quah, J. K. H., Strulovici, B. (2009). Comparative statics, informativeness, and the interval dominance order. Econometrica, 77(6), 1949-1992.\\
+%
+%Shavell, S. (2009). Economic analysis of accident law. Harvard University Press.\\
+%
+%Skaperdas, S., \& Gan, L. (1995). Risk aversion in contests. The Economic Journal, 951-962.\\
+%
+%Tibiletti, L. (2006). A Shortcut Way of Pricing Default Risk Through Zero-Utility Principle. Journal of Risk and Insurance, 73(2), 303-308.\\
+%
+%Treich, N. (2010). Risk-aversion and prudence in rent-seeking games. Public Choice, 145(3-4), 339-349.\\
+%
+%Topkis, D.M., Supermodularity and Complementarity, 1998.\\
+%
+%Viscusi, W. K. (1993).The value of risks to life and health. Journal of economic literature, 31(4), 1912-1946.\\
+%
+%Vives, X.(1990),Nash equilibrium with strategic complementarities,Journal of Mathematical Economics, 19(3), 305-321.\\
+%
+%\end{verse}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%			APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\onehalfspacing
+\allowbreak \appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proofs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proposition~\ref{prop:SI}}\label{app:prop_SI}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Let $w_L=w_0-y-\ell(y)$ be shorthand for final wealth in the loss state, and $w_N=w_0-y$ for final wealth in the no-loss state. We obtain:
+\begin{eqnarray*}
+	V'(y) & = & pv'(w_L)(-1-\ell'(y))-(1-p)v'(w_N) \\
+		  & = & p k'(u(w_L)) u'(w_L)(-1-\ell'(y)) - (1-p)k'(u(w_N))u'(w_N),
+\end{eqnarray*}
+because $v'(w)=k'(u(w))u'(w)$ from the chain rule. Concavity of $k$ implies that $k'$ is decreasing so that $k'(u(w_L)) \geq k'(u(w_N))$.\footnote{Differentiability of $k'$ is not required to establish that $k'$ is decreasing.} Furthermore, for $y \in D$, we have $-\ell'(y) \geq 1$. Therefore,
+\begin{eqnarray*}
+	V'(y) & \geq & -p k'(u(w_N)) u'(w_L)(1+\ell'(y)) - (1-p)k'(u(w_N))u'(w_N) \\
+		  & = & k'(u(w_N)) U'(y).
+\end{eqnarray*}
+Function $k'(u(w_N))$ is increasing in $y$ and strictly positive. Proposition~\ref{prop:ID} then implies that $V \succeq_{ID} U$, and Theorem~\ref{theo:ID} establishes the result.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proposition~\ref{prop:SP}}\label{app:prop_SP}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We write $w_L=w_0-x-\ell$ and $w_N=w_0-x$ for final wealth in the loss and the no-loss state. We obtain:
+\begin{eqnarray*}
+	V'(x) & = & -p'(x) \left[v(w_N)-v(w_L) \right] - \left[p(x)v'(w_L)+(1-p(x))v'(w_N) \right] \\
+	& = & -p'(x) \left[k(u(w_N))u(w_N)-k(u(w_L))u(w_L) \right] \\
+	& & -\left[ p(x)k'(u(w_L))u'(w_L)+(1-p(x))k'(u(w_L))u'(w_L) \right].
+\end{eqnarray*}
+Define auxiliary function $h(t)=k(t)-k'(t)t$ for $t \geq 0$. Function $h$ is increasing. Indeed, for $t_2 \geq t_1$, we have:
+\begin{eqnarray*}
+	h(t_2)-h(t_1) & = & k(t_2)-k(t_1)-k'(t_2)t_2 + k'(t_1)t_1 \\
+	& \geq & k(t_2)-k(t_1) -k'(t_2)(t_2-t_1) \geq 0.
+\end{eqnarray*}
+The first inequality uses $k'(t_1) \geq k'(t_2)$, which holds by concavity of $k$, and the second one exploits that, as a concave function, $k$ is bounded above by its first-order Taylor approximation. We thus have $h(u(w_N)) \geq h(u(w_L))$ for all $x \in D$.
+
+We rewrite $V'$ as follows:
+\begin{eqnarray*}
+	V'(x) & = & -p'(x) \left[h(u(w_N))-h(u(w_L)) \right]-k'(u(w_L)) \left[p(x) u'(w_L)-p'(x)u(w_L) \right]  \\
+	& & -k'(u(w_N)) \left[(1-p(x)) u'(w_N) + p'(x)u(w_N) \right] 
+\end{eqnarray*}
+Therefore, 
+\begin{eqnarray*}
+	V'(x) & \geq & -k'(u(w_L)) \left[p(x) u'(w_L)-p'(x)u(w_L) \right]   \\
+	& & -k'(u(w_N)) \left[(1-p(x)) u'(w_N) + p'(x)u(w_N) \right]. 
+\end{eqnarray*}
+The second square bracket is nonnegative because $\delta_p(x) \leq B_u(w_0-x)$. Concavity of $k$ implies that $k'$ is decreasing so that $k'(u(w_N)) \leq k'(u(w_L))$. Consequently, 
+\begin{eqnarray*}
+	V'(x) & \geq & k'(u(w_L)) \left[-p'(x)\left[u(w_N)-u(w_L)\right]-\left[p(x) u'(w_L)+(1-p(x)) u'(w_N)\right] \right] \\
+	 & = & k'(u(w_L)) U'(x).
+\end{eqnarray*} 
+Function $k'(u(w_L))$ is increasing in $x$ and strictly positive. Proposition~\ref{prop:ID} then implies that $V \succeq_{ID} U$, and Theorem~\ref{theo:ID} establishes the result.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Corollary~\ref{cor:SICP}}\label{app:cor_SICP}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The exact same steps as in Appendix~\ref{app:prop_SP} show that $V'(z) \geq k'(u(w_L)) U'(z)$. For SICP, we have $w_L = w_0-z-\ell(z)$, which is increasing in $z$ for $z \in D$. Therefore, function $k'(u(w_L))$ is increasing in $z$ and strictly positive. Proposition~\ref{prop:ID} yields $V \succeq_{ID} U$, and Theorem~\ref{theo:ID} ranks the maximizers.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+%\singlespacing
+{\small
+\bibliography{references}
+\bibliographystyle{apalike}} %apalike %plain %econometrica
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
